@@ -29,7 +29,7 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
     if ([NSString isEmpty:config.eventTrackVersion]) {
         [config eventTrackConfig];
     }
-    return [NSString isNotEmpty:config.eventTrackVersion] ? config.eventTrackVersion : @"";
+    return config.eventTrackVersion ? config.eventTrackVersion : @"";
 }
 
 /**
@@ -43,7 +43,7 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
     if (config.eventItems == nil) {
         [config eventTrackConfig];
     }
-    NSDictionary *item = np_objectForKPath(config.eventItems, className);
+    NSDictionary *item = config.eventItems[className];
     return item;
 }
 
@@ -58,8 +58,8 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
     if (config.eventItems == nil) {
         [config eventTrackConfig];
     }
-    NSDictionary *item = np_objectForKPath(config.eventItems, className);
-    NSString *eventId = np_objectForKPath(item, KConfigKeyPageId);
+    NSDictionary *item = config.eventItems[className];
+    NSString *eventId = item[KConfigKeyPageId];
     return eventId;
 }
 
@@ -75,17 +75,17 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
     if (config.eventItems == nil) {
         [config eventTrackConfig];
     }
-    NSDictionary *item = np_objectForKPath(config.eventItems, className);
-    NSDictionary *controlEvents = np_objectForKPath(item, KConfigKeyControlId);
-    NSString *eventId = np_objectForKPath(controlEvents, eventName);
+    NSDictionary *item = config.eventItems[className];
+    NSDictionary *controlEvents = item[KConfigKeyControlId];
+    NSString *eventId = controlEvents[eventName];
     return eventId;
 }
 
 - (NSDictionary *)eventTrackConfig {
     NSString *filePath = [[NSBundle mainBundle] pathForResource:KConfigFileName ofType:@"plist"];
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    self.eventTrackVersion = np_objectForKPath(dic, KConfigKeyVersion);
-    self.eventItems = np_objectForKPath(dic, KConfigKeyAllEvents);
+    self.eventTrackVersion = dic[KConfigKeyVersion];
+    self.eventItems = dic[KConfigKeyAllEvents];
     return dic;
 }
 
