@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EventTrackVersion</key>
+	<string>iOS_2.0.0</string>
+	<key>EventTrackItems</key>
+	<dict>
+		<key>FFHomeViewController</key>
+		<dict>
+			<key>PageEventId</key>
+			<string>1001</string>
+			<key>ControlEventId</key>
+			<dict>
+				<key>tableView:didSelectRowAtIndexPath:</key>
+				<string>3</string>
+				<key>applyButtonAction</key>
+				<string>1</string>
+				<key>moreLoanButtonAction</key>
+				<string>2</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>
