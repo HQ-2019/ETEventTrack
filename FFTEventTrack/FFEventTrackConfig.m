@@ -17,19 +17,13 @@
 
 @implementation FFEventTrackConfig
 
-dSINGLETON_FOR_CLASS(FFEventTrackConfig)
-
 /**
  埋点版本
  
  @return 版本号
  */
 + (NSString *)eventTrackVersion {
-    FFEventTrackConfig *config = [[self class] sharedInstance];
-    if ([NSString isEmpty:config.eventTrackVersion]) {
-        [config eventTrackConfig];
-    }
-    return config.eventTrackVersion ? config.eventTrackVersion : @"";
+    return "";
 }
 
 /**
@@ -39,12 +33,7 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
  @return dic
  */
 + (NSDictionary *)eventItem:(NSString *)className {
-    FFEventTrackConfig *config = [[self class] sharedInstance];
-    if (config.eventItems == nil) {
-        [config eventTrackConfig];
-    }
-    NSDictionary *item = config.eventItems[className];
-    return item;
+    return nil;
 }
 
 /**
@@ -54,13 +43,7 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
  @return pageId
  */
 + (NSString *)eventPageItem:(NSString *)className {
-    FFEventTrackConfig *config = [[self class] sharedInstance];
-    if (config.eventItems == nil) {
-        [config eventTrackConfig];
-    }
-    NSDictionary *item = config.eventItems[className];
-    NSString *eventId = item[KConfigKeyPageId];
-    return eventId;
+    return nil;
 }
 
 /**
@@ -71,22 +54,11 @@ dSINGLETON_FOR_CLASS(FFEventTrackConfig)
  @return 事件id
  */
 + (NSString *)eventControlIdByClassName:(NSString *)className eventName:(NSString *)eventName {
-    FFEventTrackConfig *config = [[self class] sharedInstance];
-    if (config.eventItems == nil) {
-        [config eventTrackConfig];
-    }
-    NSDictionary *item = config.eventItems[className];
-    NSDictionary *controlEvents = item[KConfigKeyControlId];
-    NSString *eventId = controlEvents[eventName];
-    return eventId;
+    return nil;
 }
 
 - (NSDictionary *)eventTrackConfig {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:KConfigFileName ofType:@"plist"];
-    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    self.eventTrackVersion = dic[KConfigKeyVersion];
-    self.eventItems = dic[KConfigKeyAllEvents];
-    return dic;
+    return nil;
 }
 
 @end

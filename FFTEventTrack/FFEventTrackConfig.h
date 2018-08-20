@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface FFEventTrackConfig : NSObject
-dSINGLETON_FOR_CLASS_HEADER(FFEventTrackConfig)
 
 /**
  埋点版本
