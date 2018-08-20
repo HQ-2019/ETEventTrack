@@ -23,7 +23,7 @@
  @return 版本号
  */
 + (NSString *)eventTrackVersion {
-    return "";
+    return @"";
 }
 
 /**

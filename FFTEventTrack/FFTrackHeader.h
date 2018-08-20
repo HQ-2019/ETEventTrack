@@ -10,12 +10,6 @@
 #define FFTrackHeader_h
 
 #import "FFTrackConstant.h"
-#import "NSObject+FFTrackIdentifier.h"
-#import "FFTrackDataUtil.h"
-#import "FFTrackDataManager.h"
-#import "FFSwizzleUtils.h"
-#import "UIViewController+FFSwizzle.h"
-#import "FFAppDelegate+FFSwizzle.h"
-#import "FFEventTrackConfig.h"
+
 
 #endif /* FFTrackHeader_h */
