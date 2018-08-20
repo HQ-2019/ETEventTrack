@@ -15,10 +15,11 @@ Pod::Spec.new do |s|
 
     s.homepage     = "https://github.com/willn1987/FFTEventTrack" # 你的主页
     s.source       = { :git => "https://github.com/willn1987/FFTEventTrack.git", :tag => "#{s.version}" }#你的仓库地址，不能用SSH地址
-    s.source_files = "FFTEventTrack/*.{h,m}" # 你代码的位置， FFTEventTrack/*.{h,m} 表示 FFTEventTrack文件夹下所有的.h和.m文件
+    # s.source_files = "FFTEventTrack/*.{h,m}" # 代码的位置， FFTEventTrack/*.{h,m} 表示 FFTEventTrack文件夹下所有的.h和.m文件
+    s.source_files = "FFTEventTrack/**/*" # 代码的位置
     s.requires_arc = true # 是否启用ARC
-    s.platform     = :ios, "7.0" #平台及支持的最低版本
-    s.frameworks   = "UIKit", "Foundation" #支持的框架
+    s.platform     = :ios, "8.0" # 平台及支持的最低版本
+    s.frameworks   = "UIKit", "Foundation" # 支持的框架
     # s.dependency   = "AFNetworking" # 依赖库
 
     # User
