@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
     s.requires_arc = true # 是否启用ARC
     s.platform     = :ios, "8.0" # 平台及支持的最低版本
     s.frameworks   = "UIKit", "Foundation" # 支持的框架
-    # s.dependency   = "AFNetworking" # 依赖库
+    # s.dependency   = "AFNetworking", "SensorsAnalyticsSDK" # 依赖库
 
     # User
     s.author             = { "willn1987" => "391690874@qq.com" } # 作者信息
