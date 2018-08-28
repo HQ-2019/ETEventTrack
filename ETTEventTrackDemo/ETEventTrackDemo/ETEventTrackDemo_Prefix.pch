@@ -1,0 +1,26 @@
+//
+//  ETEventTrackDemo_Prefix.pch
+//  ETEventTrackDemo
+//
+//  Created by huangqun on 2018/8/27.
+//  Copyright © 2018年 freedom. All rights reserved.
+//
+
+#ifndef ETEventTrackDemo_Prefix_h
+#define ETEventTrackDemo_Prefix_h
+
+//#import <AFNetworking/AFNetworking.h>
+//#import <SensorsAnalyticsSDK/SensorsAnalyticsSDK.h>
+
+#import "ETEventTrack.h"
+#import "EventTrackManager.h"
+
+
+// log
+#ifdef RELEASE
+#define NSLog(format, ...)
+#else
+#define NSLog(format, ...) printf("[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+#endif
+
+#endif /* ETEventTrackDemo_Prefix_h */

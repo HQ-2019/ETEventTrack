@@ -1,14 +1,16 @@
 //
 //  FFEventTrackConfig.h
-//  FFTwoBaboons
+//  ETEventTrack
 //
 //  Created by huangqun on 2018/3/29.
 //  Copyright © 2018年 finupgroup. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "ETConstants.h"
 
-@interface FFEventTrackConfig : NSObject
+@interface ETConfigFileUtils : NSObject
+dET_SINGLETON_FOR_CLASS_HEADER(ETConfigFileUtils)
 
 /**
  埋点版本
