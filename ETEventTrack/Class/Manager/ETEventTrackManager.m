@@ -119,7 +119,35 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
 }
 
 - (void)uploadEventTrackData:(KResponeAlertCallBack)callback {
-    [self uploadEventTrackDataWithCount:self.currentArray.count callback:^(BOOL success, NSString *msg) {
+//    [self uploadEventTrackDataWithCount:self.currentArray.count callback:^(BOOL success, NSString *msg) {
+//        if (callback) {
+//            callback(success, msg);
+//        }
+//    }];
+    
+    if (![self isUploadData] || [ETEventTrack sharedInstance].serverUrl.length <= 0 || self.currentArray.count <= 0) {
+        return;
+    }
+    
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    // 设置埋点数据
+    [params setValue:self.currentArray forKey:@"body"];
+    
+    self.uploading = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    [[ETNetworkManager sharedInstance] POST:[ETEventTrack sharedInstance].serverUrl parameters:params callBack:^(id JSONResponse, NSError *error) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        self.uploading = NO;
+        NSString *status = JSONResponse[@"code"];
+        NSString *msg = JSONResponse[@"message"];
+        BOOL success = NO;
+        if ([status isEqualToString:@"0000"] && error == nil) {
+            //清除数据
+            [self.currentArray removeAllObjects];
+            [strongSelf clearLoactionData];
+            success = YES;
+        }
         if (callback) {
             callback(success, msg);
         }
@@ -140,66 +168,9 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
     NSArray *loactionArray = [ETJsonUtils fromJSONString:jsonString];
     if (loactionArray.count > 0) {
         [self.currentArray insertObjects:loactionArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, loactionArray.count)]];
-        [self uploadEventTrackDataWithCount:self.currentArray.count callback:nil];
+        NSLog(@"上传本地埋点数据 : %@", self.currentArray);
+        [self uploadEventTrackData:nil];
     }
-    NSLog(@"上传本地埋点数据 : %@", self.currentArray);
-}
-
-/**
- 上传统计数据
-
- @param count 上传的埋点数据条数
- @param callback 回调
- */
-- (void)uploadEventTrackDataWithCount:(NSUInteger)count callback:(KResponeAlertCallBack)callback {
-    if (![self isUploadData] || [ETEventTrack sharedInstance].serverUrl.length <= 0) {
-        return;
-    }
-
-    if (count > self.currentArray.count) {
-        count = self.currentArray.count;
-    }
-    NSArray *uploadArray = [self.currentArray subarrayWithRange:NSMakeRange(0, count)];
-//    NSMutableArray *uploadMutableArray = [NSMutableArray array];
-//    for (NSDictionary *dic in uploadArray) {
-//        NSMutableDictionary *params = dic.mutableCopy;
-//        [params addEntriesFromDictionary:[FFTrackDataUtil commonData]];
-//        [uploadMutableArray addObject:params];
-//    }
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    // 设置埋点数据
-    [params setValue:uploadArray forKey:@"body"];
-
-    self.uploading = YES;
-    
-    __weak typeof(self) weakSelf = self;
-    
-    [[ETNetworkManager sharedInstance] POST:[ETEventTrack sharedInstance].serverUrl parameters:params callBack:^(id JSONResponse, NSError *error) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        self.uploading = NO;
-        NSString *status = JSONResponse[@"code"];
-        NSString *msg = JSONResponse[@"message"];
-        BOOL success = NO;
-        if ([status isEqualToString:@"0000"] && error == nil) {
-            //统计满kMaxCounts条上传后删除本地数据
-            if (strongSelf.currentArray.count > 0) {
-                //进入后台时为保存数据并清除currentArray 在此需要做count处理防止越界
-                if (count >= strongSelf.currentArray.count) {
-                    [self.currentArray removeAllObjects];
-                } else {
-                    if (count < strongSelf.currentArray.count) {
-                        [strongSelf.currentArray removeObjectsInRange:NSMakeRange(0, count)];
-                    }
-                }
-            }
-            //清除数据
-            [strongSelf clearLoactionData];
-            success = YES;
-        }
-        if (callback) {
-            callback(success, msg);
-        }
-    }];
 }
 
 /**

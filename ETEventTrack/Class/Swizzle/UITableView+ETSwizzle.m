@@ -90,9 +90,9 @@
         
         NSString *index = @"";
         if ([pageId isEqualToString:@"1012"]) {
-            index = [NSString stringWithFormat:@"%ld", indexPath.row + 2];
+            index = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 2];
         } else {
-            index = [NSString stringWithFormat:@"%ld", indexPath.row];
+            index = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
         }
         
         if (cell.et_expendData.allKeys.count > 0) {
@@ -107,7 +107,7 @@
         NSDictionary *event = eventDic.copy;
         [ETEventTrackManager addEventTrackData:event];
         
-        if ([cell.et_expendData.allKeys containsObject:@"id"] || [self.et_expendData.allKeys containsObject:@"id"]) {
+        if ([cell.et_expendData.allKeys containsObject:@"id"]) {
             [eventDic setValue:cell.et_expendData[@"id"] forKey:ETEventKeyContent];
             NSDictionary *sEvent = eventDic.copy;
             [ETAnalyticsManager sensorAnalyticTrackEvent:ETBuryPointTypeClick properties:sEvent];
@@ -117,8 +117,7 @@
             NSDictionary *sEvent = eventDic.copy;
             [ETAnalyticsManager sensorAnalyticTrackEvent:ETBuryPointTypeClick properties:sEvent];
             return;
-        }
-        else {
+        } else {
             [eventDic setValue:nil forKey:ETEventKeyContent];
             NSDictionary *sEvent = eventDic.copy;
             [ETAnalyticsManager sensorAnalyticTrackEvent:ETBuryPointTypeClick properties:sEvent];

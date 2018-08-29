@@ -17,10 +17,13 @@ Pod::Spec.new do |s|
     s.source       = { :git => "https://github.com/willn1987/ETEventTrack.git", :tag => "#{s.version}" } # 仓库地址，不能用SSH地址
     # s.source_files = "ETEventTrack/*.{h,m}" # 代码的位置， ETEventTrack/*.{h,m} 表示 ETEventTrack文件夹下所有的.h和.m文件
     s.source_files = "ETEventTrack/**/*" # 代码的位置
-    s.requires_arc = true # 是否启用ARC
+    s.requires_arc = true # 需要ARC
     s.platform     = :ios, "8.0" # 平台及支持的最低版本
     s.frameworks   = "UIKit", "Foundation" # 支持的框架
-    # s.dependency   = "AFNetworking", "SensorsAnalyticsSDK" # 依赖库
+
+    # 依赖库
+    s.dependency 'AFNetworking', '~> 3.2.1'
+    s.dependency 'SensorsAnalyticsSDK'
 
     # User
     s.author             = { "willn1987" => "391690874@qq.com" } # 作者信息

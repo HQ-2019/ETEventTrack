@@ -32,7 +32,7 @@
     NSString *serverURL = [NSString stringWithFormat:@"%@%@", @"http://feifei-app-h5.feifei.test", @"/api/burypoint/bury"];
     NSString *shenceServerURL = @"http://123.59.154.79:8106/sa?project=default";
     NSString *configFileName = @"FFEventTrackConfig";
-    [ETEventTrack configShenceSdkWithServerUrl:shenceServerURL enableLog:YES];
+    [ETEventTrack configShenceSdkWithServerUrl:shenceServerURL enableLog:NO];
     [ETEventTrack startWithServerUrl:serverURL configFileName:configFileName commonParamsBloack:[self commonParamsBloack]];
 }
 

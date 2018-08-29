@@ -16,10 +16,10 @@
 		2E33228A213521DB0016639B /* ETTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E332289213521DB0016639B /* ETTabBarViewController.m */; };
 		2E33228C213525720016639B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E33228B213525720016639B /* LaunchScreen.storyboard */; };
 		2E33228F213528D00016639B /* ETSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E33228E213528D00016639B /* ETSubViewController.m */; };
+		2E332293213562210016639B /* ETApplicationListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E332292213562210016639B /* ETApplicationListener.m */; };
 		2E36187A212D417C0078FCE2 /* ETConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36185F212D417B0078FCE2 /* ETConstants.m */; };
 		2E36187C212D417C0078FCE2 /* ETConfigFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361862212D417C0078FCE2 /* ETConfigFileUtils.m */; };
 		2E36187E212D417C0078FCE2 /* ETDateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361867212D417C0078FCE2 /* ETDateUtil.m */; };
-		2E361880212D417C0078FCE2 /* AppDelegate+ETSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36186E212D417C0078FCE2 /* AppDelegate+ETSwizzle.m */; };
 		2E361881212D417C0078FCE2 /* UITableView+ETSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361872212D417C0078FCE2 /* UITableView+ETSwizzle.m */; };
 		2E361882212D417C0078FCE2 /* UIViewController+ETSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361873212D417C0078FCE2 /* UIViewController+ETSwizzle.m */; };
 		2E361883212D417C0078FCE2 /* UIControl+ETSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361875212D417C0078FCE2 /* UIControl+ETSwizzle.m */; };
@@ -78,6 +78,8 @@
 		2E33228D213528D00016639B /* ETSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETSubViewController.h; sourceTree = "<group>"; };
 		2E33228E213528D00016639B /* ETSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETSubViewController.m; sourceTree = "<group>"; };
 		2E33229021352EE50016639B /* ETEventTrackDemo_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETEventTrackDemo_Prefix.pch; sourceTree = "<group>"; };
+		2E332291213562210016639B /* ETApplicationListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETApplicationListener.h; sourceTree = "<group>"; };
+		2E332292213562210016639B /* ETApplicationListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETApplicationListener.m; sourceTree = "<group>"; };
 		2E36185F212D417B0078FCE2 /* ETConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETConstants.m; sourceTree = "<group>"; };
 		2E361861212D417C0078FCE2 /* ETConfigFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETConfigFileUtils.h; sourceTree = "<group>"; };
 		2E361862212D417C0078FCE2 /* ETConfigFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETConfigFileUtils.m; sourceTree = "<group>"; };
@@ -85,13 +87,11 @@
 		2E361867212D417C0078FCE2 /* ETDateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETDateUtil.m; sourceTree = "<group>"; };
 		2E361869212D417C0078FCE2 /* ETDateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETDateUtil.h; sourceTree = "<group>"; };
 		2E36186D212D417C0078FCE2 /* UITableView+ETSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+ETSwizzle.h"; sourceTree = "<group>"; };
-		2E36186E212D417C0078FCE2 /* AppDelegate+ETSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+ETSwizzle.m"; sourceTree = "<group>"; };
 		2E36186F212D417C0078FCE2 /* UIViewController+ETSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ETSwizzle.h"; sourceTree = "<group>"; };
 		2E361870212D417C0078FCE2 /* UIControl+ETSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+ETSwizzle.h"; sourceTree = "<group>"; };
 		2E361871212D417C0078FCE2 /* ETSwizzleUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETSwizzleUtils.h; sourceTree = "<group>"; };
 		2E361872212D417C0078FCE2 /* UITableView+ETSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+ETSwizzle.m"; sourceTree = "<group>"; };
 		2E361873212D417C0078FCE2 /* UIViewController+ETSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ETSwizzle.m"; sourceTree = "<group>"; };
-		2E361874212D417C0078FCE2 /* AppDelegate+ETSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+ETSwizzle.h"; sourceTree = "<group>"; };
 		2E361875212D417C0078FCE2 /* UIControl+ETSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+ETSwizzle.m"; sourceTree = "<group>"; };
 		2E361876212D417C0078FCE2 /* ETSwizzleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETSwizzleUtils.m; sourceTree = "<group>"; };
 		2E361887212D61600078FCE2 /* ETEventTrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETEventTrack.h; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 		2E36186C212D417C0078FCE2 /* Swizzle */ = {
 			isa = PBXGroup;
 			children = (
-				2E361874212D417C0078FCE2 /* AppDelegate+ETSwizzle.h */,
-				2E36186E212D417C0078FCE2 /* AppDelegate+ETSwizzle.m */,
+				2E332291213562210016639B /* ETApplicationListener.h */,
+				2E332292213562210016639B /* ETApplicationListener.m */,
 				2E361870212D417C0078FCE2 /* UIControl+ETSwizzle.h */,
 				2E361875212D417C0078FCE2 /* UIControl+ETSwizzle.m */,
 				2E36186D212D417C0078FCE2 /* UITableView+ETSwizzle.h */,
@@ -471,12 +471,12 @@
 				2E36187C212D417C0078FCE2 /* ETConfigFileUtils.m in Sources */,
 				2EAA8F8B2133B24800EDB3F6 /* NSObject+ETIdentifier.m in Sources */,
 				2EAA8F9F2133E31D00EDB3F6 /* ETJsonUtils.m in Sources */,
-				2E361880212D417C0078FCE2 /* AppDelegate+ETSwizzle.m in Sources */,
 				2E3322872134F8610016639B /* ETDataManamer.m in Sources */,
 				2E061BC3212BF898003F8C62 /* main.m in Sources */,
 				2EAA8F982133D81000EDB3F6 /* ETAnalyticsManager.m in Sources */,
 				2E33228A213521DB0016639B /* ETTabBarViewController.m in Sources */,
 				2EAA8F972133D81000EDB3F6 /* ETEventTrackManager.m in Sources */,
+				2E332293213562210016639B /* ETApplicationListener.m in Sources */,
 				2E361884212D417C0078FCE2 /* ETSwizzleUtils.m in Sources */,
 				2E33228F213528D00016639B /* ETSubViewController.m in Sources */,
 				2E36187A212D417C0078FCE2 /* ETConstants.m in Sources */,

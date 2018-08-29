@@ -14,6 +14,8 @@
 #import "ETDateUtil.h"
 #import "ETAnalyticsManager.h"
 
+#import "ETApplicationListener.h"
+
 @implementation ETEventTrack
 
 dET_SINGLETON_FOR_CLASS(ETEventTrack)
@@ -48,6 +50,9 @@ dET_SINGLETON_FOR_CLASS(ETEventTrack)
     if (commonParamsBloack) {
         self.commonParamsbloack = commonParamsBloack;
     }
+    
+    // 启动应用程序生命周期事件的监听
+    [ETApplicationListener startApplicationListeners];
 }
 
 /**
@@ -95,6 +100,5 @@ dET_SINGLETON_FOR_CLASS(ETEventTrack)
 + (void)addShenceEventTrackWithEvent:(NSString *)event properties:(NSDictionary *)propertieDic {
     [ETAnalyticsManager sensorAnalyticTrackEvent:event properties:propertieDic];
 }
-
 
 @end
