@@ -9,7 +9,7 @@
 #import "ETNetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
 
-double const kRequstTimeOut = 30.0;      /**< 网络请求默认的超时时间 */
+double const ETRequstTimeOut = 30.0;      /**< 网络请求默认的超时时间 */
 
 @interface ETNetworkManager ()
 
@@ -28,7 +28,7 @@ dET_SINGLETON_FOR_CLASS(ETNetworkManager)
         _requestManager.responseSerializer = [AFJSONResponseSerializer serializer];
         _requestManager.requestSerializer = [AFJSONRequestSerializer serializer];
         // 连接超时时间设置为30秒
-        _requestManager.requestSerializer.timeoutInterval = kRequstTimeOut;
+        _requestManager.requestSerializer.timeoutInterval = ETRequstTimeOut;
         
 //        if ([[ETEventTrack sharedInstance].serverUrl hasPrefix:@"https:"]) {
 //            _requestManager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
@@ -86,7 +86,7 @@ dET_SINGLETON_FOR_CLASS(ETNetworkManager)
 - (void)POST:(NSString *)interface
   parameters:(NSDictionary *)params
     callBack:(ETNetworkResponeCallBack)callBack {
-    [self POST:interface timeout:kRequstTimeOut parameters:params callBack:callBack];
+    [self POST:interface timeout:ETRequstTimeOut parameters:params callBack:callBack];
 }
 
 /**

@@ -9,34 +9,34 @@
 #import "NSObject+ETIdentifier.h"
 #import <objc/runtime.h>
 
-static void *const KEventId = (void *) &KEventId;
-static void *const KViewAppearTime = (void *) &KViewAppearTime;
-static void *const KExpendData = (void *) &KExpendData;
+static void *const ETEventId = (void *) &ETEventId;
+static void *const ETViewAppearTime = (void *) &ETViewAppearTime;
+static void *const ETExpendData = (void *) &ETExpendData;
 
 @implementation NSObject (ETIdentifier)
 
 - (void)setEt_eventId:(NSString *)eventId {
-    objc_setAssociatedObject(self, KEventId, eventId, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, ETEventId, eventId, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSString *)et_eventId {
-    return objc_getAssociatedObject(self, KEventId);
+    return objc_getAssociatedObject(self, ETEventId);
 }
 
 - (void)setEt_viewAppearTime:(NSString *)viewAppearTime {
-    objc_setAssociatedObject(self, KViewAppearTime, viewAppearTime, OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, ETViewAppearTime, viewAppearTime, OBJC_ASSOCIATION_RETAIN);
 }
 
 - (NSString *)et_viewAppearTime {
-    return objc_getAssociatedObject(self, KViewAppearTime);
+    return objc_getAssociatedObject(self, ETViewAppearTime);
 }
 
 - (void)setEt_expendData:(NSDictionary *)expendData {
-    objc_setAssociatedObject(self, KExpendData, expendData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, ETExpendData, expendData, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSDictionary *)et_expendData {
-    return objc_getAssociatedObject(self, KExpendData);
+    return objc_getAssociatedObject(self, ETExpendData);
 }
 
 - (void)configInfoData:(id)obj {
