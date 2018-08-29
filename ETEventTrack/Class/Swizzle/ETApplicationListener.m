@@ -26,39 +26,48 @@
 @end
 
 @implementation ETApplicationListener
-dET_SINGLETON_FOR_CLASS(ETApplicationListener)
+
++ (ETApplicationListener *)sharedInstance {
+    static dispatch_once_t onceToken;
+    static ETApplicationListener *sharedInstance = nil;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[ETApplicationListener alloc] init];
+        
+    });
+    return sharedInstance;
+}
 
 /**
  启动应用程序生命周期事件的监听
  */
 + (void)startApplicationListeners {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
+
     [notificationCenter addObserver:[ETApplicationListener sharedInstance]
                            selector:@selector(applicationDidFinishLaunchingNotification:)
                                name:UIApplicationDidFinishLaunchingNotification
                              object:nil];
-    
+
     [notificationCenter addObserver:[ETApplicationListener sharedInstance]
                            selector:@selector(applicationWillEnterForeground:)
                                name:UIApplicationWillEnterForegroundNotification
                              object:nil];
-    
+
     [notificationCenter addObserver:[ETApplicationListener sharedInstance]
                            selector:@selector(applicationDidBecomeActive:)
                                name:UIApplicationDidBecomeActiveNotification
                              object:nil];
-    
+
     [notificationCenter addObserver:[ETApplicationListener sharedInstance]
                            selector:@selector(applicationWillResignActive:)
                                name:UIApplicationWillResignActiveNotification
                              object:nil];
-    
+
     [notificationCenter addObserver:[ETApplicationListener sharedInstance]
                            selector:@selector(applicationDidEnterBackground:)
                                name:UIApplicationDidEnterBackgroundNotification
                              object:nil];
-    
+
     [notificationCenter addObserver:[ETApplicationListener sharedInstance]
                            selector:@selector(applicationWillTerminateNotification:)
                                name:UIApplicationWillTerminateNotification

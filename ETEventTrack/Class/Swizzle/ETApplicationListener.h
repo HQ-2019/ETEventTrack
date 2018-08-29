@@ -10,7 +10,7 @@
 
 @interface ETApplicationListener : NSObject
 
-dET_SINGLETON_FOR_CLASS_HEADER(ETApplicationListener)
++ (ETApplicationListener *)sharedInstance;
 
 /**
  启动应用程序生命周期事件的监听
