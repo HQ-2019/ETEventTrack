@@ -24,7 +24,7 @@
     dispatch_once(&onceToken, ^{
         //确保只执行一次代码
         [SensorsAnalyticsSDK sharedInstanceWithServerURL:[ETEventTrack sharedInstance].shenceServerUrl
-                                            andDebugMode: SensorsAnalyticsDebugOff];
+                                            andDebugMode:SensorsAnalyticsDebugOff];
         [[SensorsAnalyticsSDK sharedInstance] enableAutoTrack:SensorsAnalyticsEventTypeAppStart | SensorsAnalyticsEventTypeAppEnd |
          SensorsAnalyticsEventTypeAppViewScreen | SensorsAnalyticsEventTypeAppClick];
         [[SensorsAnalyticsSDK sharedInstance] addWebViewUserAgentSensorsDataFlag];

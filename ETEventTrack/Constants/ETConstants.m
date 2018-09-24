@@ -12,6 +12,7 @@
 
 NSString *const ETConfigFileName = @"FFEventTrackConfig";                    /**< 配置文件名称 */
 NSString *const ETConfigKeyVersion = @"EventTrackVersion";                   /**< 配置文件版本key */
+NSString *const ETConfigKeyTimeInterval = @"EventTrackTimeInterval";         /**< 配置文件定时上传埋点信息的时间间隔 */
 NSString *const ETConfigKeyAllEvents = @"EventTrackItems";                   /**< 配置文件所有事件配置信息 */
 NSString *const ETConfigKeyPageId = @"PageEventId";                          /**< 配置文件页面key */
 NSString *const ETConfigKeyControlId = @"ControlEventId";                    /**< 配置文件页面下的控件key */

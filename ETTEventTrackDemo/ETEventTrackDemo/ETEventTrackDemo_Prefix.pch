@@ -15,12 +15,11 @@
 #import "ETEventTrack.h"
 #import "EventTrackManager.h"
 
-
 // log
-#ifdef RELEASE
-#define NSLog(format, ...)
-#else
-#define NSLog(format, ...) printf("[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
-#endif
+//#ifdef RELEASE
+//#define NSLog(format, ...)
+//#else
+//#define NSLog(format, ...) printf("[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+//#endif
 
 #endif /* ETEventTrackDemo_Prefix_h */

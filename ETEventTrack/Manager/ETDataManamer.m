@@ -22,15 +22,15 @@
     NSMutableDictionary *trackData = [NSMutableDictionary new];
     // 埋点时间
     [trackData setValue:[ETDateUtil nowTimestamp] forKey:@"operateTime"];
-    
+
     //追加参数
     if (params) {
         [trackData addEntriesFromDictionary:params];
     }
-    
+
     // 添加公参
     [trackData addEntriesFromDictionary:[ETDataManamer commonParams]];
-    
+
     return trackData;
 }
 

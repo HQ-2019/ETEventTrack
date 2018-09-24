@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "ETMacro.h"
 #import "ETConstants.h"
 #import "NSObject+ETIdentifier.h"
 
@@ -22,10 +23,12 @@ dET_SINGLETON_FOR_CLASS_HEADER(ETEventTrack)
 
  @param serverUrl 自有埋点的服务器地址
  @param configFileName 埋点信息的配置文件名称 plist格式
+ @param enableLog 是否输出log日志 默认:NO 不输出
  @param commonParamsBloack 获取宿主APP的公共参数
  */
 + (void)startWithServerUrl:(NSString *)serverUrl
             configFileName:(NSString *)configFileName
+                 enableLog:(BOOL)enableLog
         commonParamsBloack:(ETCommonParamsBloack)commonParamsBloack;
 
 /**

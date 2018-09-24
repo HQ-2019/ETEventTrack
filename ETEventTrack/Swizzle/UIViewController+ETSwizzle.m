@@ -14,6 +14,7 @@
 #import "ETUtilsHeader.h"
 #import "ETConstants.h"
 #import "NSObject+ETIdentifier.h"
+#import "ETLogger.h"
 
 @implementation UIViewController (ETSwizzle)
 
@@ -31,13 +32,13 @@
 }
 
 - (void)swizzled_viewDidAppear:(BOOL)animated {
-    NSLog(@"swizzled_viewDidAppear: %@   eventId: %@", NSStringFromClass([self class]), self.et_eventId);
+    ETLog(@"swizzled_viewDidAppear: %@   eventId: %@", NSStringFromClass([self class]), self.et_eventId);
     [self swizzled_viewDidAppear:animated];
     [self enterView];
 }
 
 - (void)swizzled_viewWillDisappear:(BOOL)animated {
-    NSLog(@"swizzled_viewWillDisappear: %@   eventId: %@", NSStringFromClass([self class]), self.et_eventId);
+    ETLog(@"swizzled_viewWillDisappear: %@   eventId: %@", NSStringFromClass([self class]), self.et_eventId);
     [self swizzled_viewWillDisappear:animated];
     [self leaveView];
 }
@@ -45,25 +46,33 @@
 #pragma mark -
 #pragma mark - 页面进入和离开
 - (void)enterView {
-    // 记录进入页面的时间
-    self.et_viewAppearTime = [ETDateUtil nowTimestamp];
-    NSString *pageId = [self getViewPageId];
-    if (pageId.length >0) {
-        // 添加页面进入时的埋点统计
-        NSDictionary *enterDic = @{ETEventKeyEventType: ETEventTypeEnter, ETEventKeyPageId: pageId};
-        [ETEventTrackManager addEventTrackData:enterDic];
-        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeEnter properties:enterDic];
+    @try {
+        // 记录进入页面的时间
+        self.et_viewAppearTime = [ETDateUtil nowTimestamp];
+        NSString *pageId = [self getViewPageId];
+        if (pageId.length > 0) {
+            // 添加页面进入时的埋点统计
+            NSDictionary *enterDic = @{ETEventKeyEventType: ETEventTypeEnter, ETEventKeyPageId: pageId};
+            [ETEventTrackManager addEventTrackData:enterDic];
+            [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeEnter properties:enterDic];
+        }
+    } @catch (NSException *exception) {
+        ETLog(@"进入页面埋点异常: %@", exception);
     }
 }
 
 - (void)leaveView {
-    NSString *pageId = [self getViewPageId];
-    if (pageId.length > 0) {
-        // 添加页面离开时的埋点统计
-        NSString *Interval = [NSString stringWithFormat:@"%lld", [ETDateUtil nowTimeIntervalSince:self.et_viewAppearTime]];
-        NSDictionary *eventDic = @{ETEventKeyEventType: ETEventTypePage, ETEventTypeDuration: Interval, ETEventKeyPageId: pageId};
-        [ETEventTrackManager addEventTrackData:eventDic.copy];
-        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypePage properties:eventDic.copy];
+    @try {
+        NSString *pageId = [self getViewPageId];
+        if (pageId.length > 0) {
+            // 添加页面离开时的埋点统计
+            NSString *Interval = [NSString stringWithFormat:@"%lld", [ETDateUtil nowTimeIntervalSince:self.et_viewAppearTime]];
+            NSDictionary *eventDic = @{ETEventKeyEventType: ETEventTypePage, ETEventTypeDuration: Interval, ETEventKeyPageId: pageId};
+            [ETEventTrackManager addEventTrackData:eventDic.copy];
+            [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypePage properties:eventDic.copy];
+        }
+    } @catch (NSException *exception) {
+        ETLog(@"离开页面埋点异常: %@", exception);
     }
 }
 
@@ -75,7 +84,7 @@
         str = self.et_eventId;
     } else {
         // 从用户埋点配置文件中查找页面id
-         str = [ETConfigFileUtils eventPageItem:NSStringFromClass([self class])];
+        str = [ETConfigFileUtils eventPageItem:NSStringFromClass([self class])];
         if (str) {
             self.et_eventId = str;
         }

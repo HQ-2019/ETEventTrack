@@ -33,7 +33,7 @@
     NSString *shenceServerURL = @"http://123.59.154.79:8106/sa?project=default";
     NSString *configFileName = @"FFEventTrackConfig";
     [ETEventTrack configShenceSdkWithServerUrl:shenceServerURL enableLog:NO];
-    [ETEventTrack startWithServerUrl:serverURL configFileName:configFileName commonParamsBloack:[self commonParamsBloack]];
+    [ETEventTrack startWithServerUrl:serverURL configFileName:configFileName enableLog:YES commonParamsBloack:[self commonParamsBloack]];
 }
 
 

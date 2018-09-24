@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ETConstants.h"
+#import "ETMacro.h"
 
 typedef void(^ETNetworkResponeCallBack)(id JSONResponse, NSError *error);
 

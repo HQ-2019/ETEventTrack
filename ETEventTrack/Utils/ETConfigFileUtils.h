@@ -20,6 +20,13 @@ dET_SINGLETON_FOR_CLASS_HEADER(ETConfigFileUtils)
 + (NSString *)eventTrackVersion;
 
 /**
+ 上传埋点信息的时间间隔
+
+ @return 如果文件中没有配置时间，则默认为30s
+ */
++ (NSUInteger)timeInterval;
+
+/**
  通过类名获取事件埋点配置信息
 
  @param className 控制器类名

@@ -12,6 +12,7 @@
 
 FOUNDATION_EXPORT NSString *const ETConfigFileName;                      /**< 配置文件名称 */
 FOUNDATION_EXPORT NSString *const ETConfigKeyVersion;                    /**< 配置文件版本key */
+FOUNDATION_EXPORT NSString *const ETConfigKeyTimeInterval;               /**< 配置文件定时上传埋点信息的时间间隔 */
 FOUNDATION_EXPORT NSString *const ETConfigKeyAllEvents;                  /**< 配置文件所有事件配置信息 */
 FOUNDATION_EXPORT NSString *const ETConfigKeyPageId;                     /**< 配置文件页面key */
 FOUNDATION_EXPORT NSString *const ETConfigKeyControlId;                  /**< 配置文件页面下的控件key */
@@ -44,42 +45,5 @@ FOUNDATION_EXPORT NSString *const ETExtMap;
 
 FOUNDATION_EXPORT NSString *const ETEventKeyClickId;                     /**< 点击id */
 FOUNDATION_EXPORT NSString *const ETEventKeyContent;                     /**< 内容 */
-
-
-#if __has_feature(objc_arc)
-
-#define dET_SINGLETON_FOR_CLASS_HEADER(classname) \
-\
-+ (classname *)sharedInstance;
-
-#define dET_SINGLETON_FOR_CLASS(classname) \
-\
-static classname *shared##classname = nil; \
-\
-+ (classname *)sharedInstance \
-{ \
-static dispatch_once_t pred; \
-dispatch_once(&pred, ^{ shared##classname = [[classname alloc] init]; }); \
-return shared##classname; \
-}
-
-#else
-
-#define dET_SINGLETON_FOR_CLASS_HEADER(classname) \
-\
-+ (classname *)sharedInstance;
-
-#define dET_SINGLETON_FOR_CLASS(classname) \
-\
-static classname *shared##classname = nil; \
-\
-+ (classname *)sharedInstance \
-{ \
-static dispatch_once_t pred; \
-dispatch_once(&pred, ^{ shared##classname = [[classname alloc] init]; }); \
-return shared##classname; \
-} \
-
-#endif
 
 @end

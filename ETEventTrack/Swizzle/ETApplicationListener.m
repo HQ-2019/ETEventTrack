@@ -17,11 +17,12 @@
 
 #import "ETUtilsHeader.h"
 #import "ETConstants.h"
+#import "ETLogger.h"
 
 @interface ETApplicationListener ()
 
-@property (nonatomic, strong) NSDate *appLaunchTime;    /**< APP启动时的时间 */
-@property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;    /**< 后台任务标记 */
+@property (nonatomic, strong) NSDate *appLaunchTime;                                          /**< APP启动时的时间 */
+@property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier; /**< 后台任务标记 */
 
 @end
 
@@ -32,7 +33,7 @@
     static ETApplicationListener *sharedInstance = nil;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[ETApplicationListener alloc] init];
-        
+
     });
     return sharedInstance;
 }
@@ -75,37 +76,37 @@
 }
 
 - (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification {
-    NSLog(@"ET  applicationDidFinishLaunchingNotification");
+    ETLog(@"ET  applicationDidFinishLaunchingNotification");
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
-    NSLog(@"ET  applicationWillEnterForeground");
+    ETLog(@"ET  applicationWillEnterForeground");
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    NSLog(@"ET  applicationDidBecomeActive");
+    ETLog(@"ET  applicationDidBecomeActive");
     // 程序切入前台 数据打点
     [self applicationStartOrEnterForeground];
-    
+
     // 结束后台任务
     [self endBackgroundTask];
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification {
-    NSLog(@"ET  applicationWillResignActive");
+    ETLog(@"ET  applicationWillResignActive");
 }
 
 - (void)applicationDidEnterBackground:(NSNotification *)notification {
-    NSLog(@"ET  applicationDidEnterBackground");
+    ETLog(@"ET  applicationDidEnterBackground");
     // 标记一个后台任务开始 默认600S
     [self startBackgroundTask];
-    
+
     // 上传所以埋点日志
     [self submitAllLogsWhenEnterBackground];
 }
 
--(void)applicationWillTerminateNotification:(NSNotification *)notification {
-    NSLog(@"ET  applicationWillTerminateNotification");
+- (void)applicationWillTerminateNotification:(NSNotification *)notification {
+    ETLog(@"ET  applicationWillTerminateNotification");
     // 应用被kill时保存埋点日志到本地
     [self addEnterBackgroundEventTrackInfo:@"0"];
     [ETEventTrackManager saveLocalEventTrackData];
@@ -114,52 +115,64 @@
 #pragma mark -
 #pragma mark - 应用程序启动或者进入前台时添加埋点
 - (void)applicationStartOrEnterForeground {
-    self.appLaunchTime = [NSDate date];
-    // 添加进入前台的埋点
-    [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppEnterForeground];
-    [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppEnterForeground}];
-    
-    if (![self hasLaunched]) {
-        // 第一次安装
-        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppFisrtLaunch];
-        [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppFisrtLaunch}];
+    @try {
+        self.appLaunchTime = [NSDate date];
+        // 添加进入前台的埋点
+        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppEnterForeground];
+        [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppEnterForeground}];
+
+        if (![self hasLaunched]) {
+            // 第一次安装
+            [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppFisrtLaunch];
+            [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppFisrtLaunch}];
+        }
+
+        //进入前台 上传本地和已有埋点数据
+        [ETEventTrackManager uploadLocalEventTrackData];
+    } @catch (NSException *exception) {
+        ETLog(@"应用启动上传埋点信息异常: %@", exception);
     }
-    
-    //进入前台 上传本地和已有埋点数据
-    [ETEventTrackManager uploadLocalEventTrackData];
 }
 
 #pragma mark -
 #pragma mark - 程序进入后台时上传埋点所有日志
 - (void)submitAllLogsWhenEnterBackground {
-    // 添加进入后台时的埋点
-    [self addEnterBackgroundEventTrackInfo:@"1"];
-    
-    // 上传已有的埋点数据
-    __weak typeof(self) weakSelf = self;
-    [ETEventTrackManager uploadEventTrackData:^(BOOL success, NSString *msg) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        if (!success) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                // 进入后台时存储本地统计数据 （上传失败时将数据缓存到本地）
-                [ETEventTrackManager saveLocalEventTrackData];
-            });
-        }
-        // 结束后台任务
-        [strongSelf endBackgroundTask];
-    }];
+    @try {
+        // 添加进入后台时的埋点
+        [self addEnterBackgroundEventTrackInfo:@"1"];
+
+        // 上传已有的埋点数据
+        __weak typeof(self) weakSelf = self;
+        [ETEventTrackManager uploadEventTrackData:^(BOOL success, NSString *msg) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            if (!success) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    // 进入后台时存储本地统计数据 （上传失败时将数据缓存到本地）
+                    [ETEventTrackManager saveLocalEventTrackData];
+                });
+            }
+            // 结束后台任务
+            [strongSelf endBackgroundTask];
+        }];
+    } @catch (NSException *exception) {
+        ETLog(@"应用进入后台上传埋点信息异常: %@", exception);
+    }
 }
 
 - (void)addEnterBackgroundEventTrackInfo:(NSString *)type {
-    // 添加应用挂起或杀掉时的埋点
-    double timeInterval = [[NSDate date] timeIntervalSinceDate:self.appLaunchTime];
-    NSString *timeIntervalString = [NSString stringWithFormat:@"%0.0f", timeInterval * 1000];
-    NSDictionary *dic = @{ETEventKeyEventType: ETEventTypeAppEnterBackground,
-                          @"exitType": type,
-                          @"length": timeIntervalString
-                          };
-    [ETAnalyticsManager  sensorAnalyticTrackEvent:ETEventTypeAppEnterBackground properties:dic];
-    [ETEventTrackManager addEventTrackData:dic];
+    @try {
+        // 添加应用挂起或杀掉时的埋点
+        double timeInterval = [[NSDate date] timeIntervalSinceDate:self.appLaunchTime];
+        NSString *timeIntervalString = [NSString stringWithFormat:@"%0.0f", timeInterval * 1000];
+        NSDictionary *dic = @{ ETEventKeyEventType: ETEventTypeAppEnterBackground,
+                               @"exitType": type,
+                               @"length": timeIntervalString
+        };
+        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppEnterBackground properties:dic];
+        [ETEventTrackManager addEventTrackData:dic];
+    } @catch (NSException *exception) {
+        ETLog(@"应用进入后台增加埋点异常: %@", exception);
+    }
 }
 
 #pragma mark -
@@ -171,7 +184,7 @@
         // 当应用程序留给后台的时间快要到结束时（应用程序留给后台执行的时间是有限的）， 这个Block块将被执行
         // 我们需要在此Block块中执行一些清理工作。
         // 如果清理工作失败了，那么将导致程序挂掉
-        
+
         // 清理工作需要在主线程中用同步的方式来进行
         [strongSelf endBackgroundTask];
     }];

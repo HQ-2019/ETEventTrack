@@ -19,19 +19,19 @@
 + (UIViewController *)getViewControllerWithTarget:(id)target {
     //如果target是ViewController 则直接返回
     if ([target isKindOfClass:[UIViewController class]]) {
-        return (UIViewController *) target;
+        return (UIViewController *)target;
     }
-    
+
     //如果target是继承UIView 则查询其所属的ViewController
     if ([target isKindOfClass:[UIView class]]) {
-        for (UIView *next = (UIView *) target; next; next = next.superview) {
+        for (UIView *next = (UIView *)target; next; next = next.superview) {
             UIResponder *nextResponder = [next nextResponder];
             if ([nextResponder isKindOfClass:[UIViewController class]]) {
-                return (UIViewController *) nextResponder;
+                return (UIViewController *)nextResponder;
             }
         }
     }
-    
+
     return nil;
 }
 
@@ -45,7 +45,7 @@
     for (UIView *next = [subView superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *) nextResponder;
+            return (UIViewController *)nextResponder;
         }
     }
     

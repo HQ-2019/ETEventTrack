@@ -4,6 +4,8 @@
 <dict>
 	<key>EventTrackVersion</key>
 	<string>iOS_2.0.0</string>
+	<key>EventTrackTimeInterval</key>
+	<integer>5</integer>
 	<key>EventTrackItems</key>
 	<dict>
 		<key>ETHomeViewController</key>

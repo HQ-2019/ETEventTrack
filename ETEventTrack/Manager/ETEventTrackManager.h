@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ETConstants.h"
+#import "ETMacro.h"
 
 /**
  UI提示回调

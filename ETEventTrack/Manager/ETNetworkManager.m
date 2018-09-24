@@ -8,6 +8,7 @@
 
 #import "ETNetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
+#import "ETLogger.h"
 
 double const ETRequstTimeOut = 30.0;      /**< 网络请求默认的超时时间 */
 
@@ -29,30 +30,6 @@ dET_SINGLETON_FOR_CLASS(ETNetworkManager)
         _requestManager.requestSerializer = [AFJSONRequestSerializer serializer];
         // 连接超时时间设置为30秒
         _requestManager.requestSerializer.timeoutInterval = ETRequstTimeOut;
-        
-//        if ([[ETEventTrack sharedInstance].serverUrl hasPrefix:@"https:"]) {
-//            _requestManager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-//            _requestManager.securityPolicy.allowInvalidCertificates = YES;
-//            _requestManager.securityPolicy.validatesDomainName = NO;
-//        }
-//        
-//        // 监控网络状态变化
-//        NSOperationQueue *operationQueue = _requestManager.operationQueue;
-//        [_requestManager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//            NSLog(@"当前网络类型变更： %ld", (long)status);
-//            switch (status) {
-//                case AFNetworkReachabilityStatusReachableViaWWAN:
-//                case AFNetworkReachabilityStatusReachableViaWiFi:
-//                    [operationQueue setSuspended:NO];
-//                    break;
-//                case AFNetworkReachabilityStatusNotReachable:
-//                default:
-//                    [operationQueue setSuspended:YES];
-//                    break;
-//            }
-//        }];
-//        NSLog(@"当前网络类型 ： %ld", (long)_requestManager.reachabilityManager.networkReachabilityStatus);
-//        [_requestManager.reachabilityManager startMonitoring];
     }
     return _requestManager;
 }
@@ -143,7 +120,7 @@ dET_SINGLETON_FOR_CLASS(ETNetworkManager)
               interface:(NSString *)interface
              parameters:(NSDictionary *)params
                callBack:(ETNetworkResponeCallBack)callBack {
-    NSLog(@"\n ********** 发送信令 (成功) ********* \n服务器接口: %@ \n请求参数: %@ \n服务器响应: %@ \n ************* 信令结束 (成功) ********** ", task.originalRequest.URL, params, responseObject);
+    ETLog(@"\n ********** 发送信令 (成功) ********* \n服务器接口: %@ \n请求参数: %@ \n服务器响应: %@ \n ************* 信令结束 (成功) ********** ", task.originalRequest.URL, params, responseObject);
     // 需要时统一处理状态值
     
     //回调请求结果
@@ -159,7 +136,7 @@ dET_SINGLETON_FOR_CLASS(ETNetworkManager)
               interface:(NSString *)interface
              parameters:(NSDictionary *)params
                callBack:(ETNetworkResponeCallBack)callBack {
-    NSLog(@"\n ********** 发送信令 (失败) ********* \n服务器接口: %@ \n请求参数: %@ \n错误信息: %@ \n ************* 信令结束 (失败) ********** ", task.originalRequest.URL, params, error);
+    ETLog(@"\n ********** 发送信令 (失败) ********* \n服务器接口: %@ \n请求参数: %@ \n错误信息: %@ \n ************* 信令结束 (失败) ********** ", task.originalRequest.URL, params, error);
     if (error.code != NSURLErrorCancelled && callBack) {
         callBack(nil, error);
     }

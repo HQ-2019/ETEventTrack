@@ -10,8 +10,6 @@
 		2E061BB5212BF897003F8C62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E061BB4212BF897003F8C62 /* AppDelegate.m */; };
 		2E061BBD212BF898003F8C62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E061BBC212BF898003F8C62 /* Assets.xcassets */; };
 		2E061BC3212BF898003F8C62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E061BC2212BF898003F8C62 /* main.m */; };
-		2E061BCD212BF898003F8C62 /* ETEventTrackDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E061BCC212BF898003F8C62 /* ETEventTrackDemoTests.m */; };
-		2E061BD8212BF898003F8C62 /* ETEventTrackDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E061BD7212BF898003F8C62 /* ETEventTrackDemoUITests.m */; };
 		2E3322872134F8610016639B /* ETDataManamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3322862134F8610016639B /* ETDataManamer.m */; };
 		2E33228A213521DB0016639B /* ETTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E332289213521DB0016639B /* ETTabBarViewController.m */; };
 		2E33228C213525720016639B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E33228B213525720016639B /* LaunchScreen.storyboard */; };
@@ -25,6 +23,7 @@
 		2E361883212D417C0078FCE2 /* UIControl+ETSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361875212D417C0078FCE2 /* UIControl+ETSwizzle.m */; };
 		2E361884212D417C0078FCE2 /* ETSwizzleUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361876212D417C0078FCE2 /* ETSwizzleUtils.m */; };
 		2E361889212D61600078FCE2 /* ETEventTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E361888212D61600078FCE2 /* ETEventTrack.m */; };
+		2E920A832157F890000B7F36 /* ETLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E920A822157F890000B7F36 /* ETLogger.m */; };
 		2EAA8F8B2133B24800EDB3F6 /* NSObject+ETIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA8F8A2133B24800EDB3F6 /* NSObject+ETIdentifier.m */; };
 		2EAA8F8E2133D10300EDB3F6 /* ETViewControllerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA8F8D2133D10300EDB3F6 /* ETViewControllerUtils.m */; };
 		2EAA8F972133D81000EDB3F6 /* ETEventTrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA8F932133D80F00EDB3F6 /* ETEventTrackManager.m */; };
@@ -35,6 +34,8 @@
 		2EAA8FA9213415EC00EDB3F6 /* ETHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA8FA4213415EC00EDB3F6 /* ETHomeViewController.m */; };
 		2EAA8FAA213415EC00EDB3F6 /* EventTrackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA8FA5213415EC00EDB3F6 /* EventTrackManager.m */; };
 		2EAA8FAB213415EC00EDB3F6 /* ETSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA8FA6213415EC00EDB3F6 /* ETSecondViewController.m */; };
+		2EC10A962157842900B572C7 /* FFTEventTrackDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC10A952157842900B572C7 /* FFTEventTrackDemoTests.m */; };
+		2EC10A982157843900B572C7 /* FFTEventTrackDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC10A972157843900B572C7 /* FFTEventTrackDemoUITests.m */; };
 		999E19A5DE10F3A8E35A2313 /* libPods-ETEventTrackDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5983BB4F28A798BA32797BC /* libPods-ETEventTrackDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -65,10 +66,8 @@
 		2E061BC1212BF898003F8C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E061BC2212BF898003F8C62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2E061BC8212BF898003F8C62 /* ETEventTrackDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETEventTrackDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E061BCC212BF898003F8C62 /* ETEventTrackDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETEventTrackDemoTests.m; sourceTree = "<group>"; };
 		2E061BCE212BF898003F8C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E061BD3212BF898003F8C62 /* ETEventTrackDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETEventTrackDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E061BD7212BF898003F8C62 /* ETEventTrackDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETEventTrackDemoUITests.m; sourceTree = "<group>"; };
 		2E061BD9212BF898003F8C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3322852134F8610016639B /* ETDataManamer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETDataManamer.h; sourceTree = "<group>"; };
 		2E3322862134F8610016639B /* ETDataManamer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETDataManamer.m; sourceTree = "<group>"; };
@@ -96,6 +95,9 @@
 		2E361876212D417C0078FCE2 /* ETSwizzleUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETSwizzleUtils.m; sourceTree = "<group>"; };
 		2E361887212D61600078FCE2 /* ETEventTrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETEventTrack.h; sourceTree = "<group>"; };
 		2E361888212D61600078FCE2 /* ETEventTrack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETEventTrack.m; sourceTree = "<group>"; };
+		2E920A812157F890000B7F36 /* ETLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETLogger.h; sourceTree = "<group>"; };
+		2E920A822157F890000B7F36 /* ETLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETLogger.m; sourceTree = "<group>"; };
+		2E920A842157FCCA000B7F36 /* ETMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETMacro.h; sourceTree = "<group>"; };
 		2EAA8F892133B24800EDB3F6 /* NSObject+ETIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ETIdentifier.h"; sourceTree = "<group>"; };
 		2EAA8F8A2133B24800EDB3F6 /* NSObject+ETIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ETIdentifier.m"; sourceTree = "<group>"; };
 		2EAA8F8C2133D10300EDB3F6 /* ETViewControllerUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETViewControllerUtils.h; sourceTree = "<group>"; };
@@ -116,6 +118,8 @@
 		2EAA8FA5213415EC00EDB3F6 /* EventTrackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventTrackManager.m; sourceTree = "<group>"; };
 		2EAA8FA6213415EC00EDB3F6 /* ETSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETSecondViewController.m; sourceTree = "<group>"; };
 		2EAA8FA7213415EC00EDB3F6 /* ETHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHomeViewController.h; sourceTree = "<group>"; };
+		2EC10A952157842900B572C7 /* FFTEventTrackDemoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFTEventTrackDemoTests.m; sourceTree = "<group>"; };
+		2EC10A972157843900B572C7 /* FFTEventTrackDemoUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFTEventTrackDemoUITests.m; sourceTree = "<group>"; };
 		2EDCBCE5212D7E2F00333D90 /* ETEventTrack+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ETEventTrack+Private.h"; sourceTree = "<group>"; };
 		B5983BB4F28A798BA32797BC /* libPods-ETEventTrackDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ETEventTrackDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -190,7 +194,7 @@
 		2E061BCB212BF898003F8C62 /* ETEventTrackDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				2E061BCC212BF898003F8C62 /* ETEventTrackDemoTests.m */,
+				2EC10A952157842900B572C7 /* FFTEventTrackDemoTests.m */,
 				2E061BCE212BF898003F8C62 /* Info.plist */,
 			);
 			path = ETEventTrackDemoTests;
@@ -199,7 +203,7 @@
 		2E061BD6212BF898003F8C62 /* ETEventTrackDemoUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2E061BD7212BF898003F8C62 /* ETEventTrackDemoUITests.m */,
+				2EC10A972157843900B572C7 /* FFTEventTrackDemoUITests.m */,
 				2E061BD9212BF898003F8C62 /* Info.plist */,
 			);
 			path = ETEventTrackDemoUITests;
@@ -226,7 +230,12 @@
 				2E361887212D61600078FCE2 /* ETEventTrack.h */,
 				2EDCBCE5212D7E2F00333D90 /* ETEventTrack+Private.h */,
 				2E361888212D61600078FCE2 /* ETEventTrack.m */,
-				2EAA8F902133D44200EDB3F6 /* Class */,
+				2EAA8F892133B24800EDB3F6 /* NSObject+ETIdentifier.h */,
+				2EAA8F8A2133B24800EDB3F6 /* NSObject+ETIdentifier.m */,
+				2EAA8F922133D80F00EDB3F6 /* Manager */,
+				2E36186C212D417C0078FCE2 /* Swizzle */,
+				2EAA8F8F2133D3AA00EDB3F6 /* Utils */,
+				2EAA8F902133D44200EDB3F6 /* Constants */,
 			);
 			name = ETEventTrack;
 			path = ../../ETEventTrack;
@@ -236,6 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				2EAA8F912133D6A200EDB3F6 /* ETUtilsHeader.h */,
+				2E920A812157F890000B7F36 /* ETLogger.h */,
+				2E920A822157F890000B7F36 /* ETLogger.m */,
 				2E361861212D417C0078FCE2 /* ETConfigFileUtils.h */,
 				2E361862212D417C0078FCE2 /* ETConfigFileUtils.m */,
 				2E361869212D417C0078FCE2 /* ETDateUtil.h */,
@@ -250,18 +261,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		2EAA8F902133D44200EDB3F6 /* Class */ = {
+		2EAA8F902133D44200EDB3F6 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
 				2E361863212D417C0078FCE2 /* ETConstants.h */,
 				2E36185F212D417B0078FCE2 /* ETConstants.m */,
-				2EAA8F892133B24800EDB3F6 /* NSObject+ETIdentifier.h */,
-				2EAA8F8A2133B24800EDB3F6 /* NSObject+ETIdentifier.m */,
-				2EAA8F922133D80F00EDB3F6 /* Manager */,
-				2E36186C212D417C0078FCE2 /* Swizzle */,
-				2EAA8F8F2133D3AA00EDB3F6 /* Utils */,
+				2E920A842157FCCA000B7F36 /* ETMacro.h */,
 			);
-			path = Class;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		2EAA8F922133D80F00EDB3F6 /* Manager */ = {
@@ -470,6 +477,7 @@
 				2EAA8F8E2133D10300EDB3F6 /* ETViewControllerUtils.m in Sources */,
 				2E36187C212D417C0078FCE2 /* ETConfigFileUtils.m in Sources */,
 				2EAA8F8B2133B24800EDB3F6 /* NSObject+ETIdentifier.m in Sources */,
+				2E920A832157F890000B7F36 /* ETLogger.m in Sources */,
 				2EAA8F9F2133E31D00EDB3F6 /* ETJsonUtils.m in Sources */,
 				2E3322872134F8610016639B /* ETDataManamer.m in Sources */,
 				2E061BC3212BF898003F8C62 /* main.m in Sources */,
@@ -494,7 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E061BCD212BF898003F8C62 /* ETEventTrackDemoTests.m in Sources */,
+				2EC10A962157842900B572C7 /* FFTEventTrackDemoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,7 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E061BD8212BF898003F8C62 /* ETEventTrackDemoUITests.m in Sources */,
+				2EC10A982157843900B572C7 /* FFTEventTrackDemoUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +581,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -625,7 +633,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -641,6 +649,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/ETEventTrackDemo_Prefix.pch";
 				INFOPLIST_FILE = ETEventTrackDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -660,6 +669,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/ETEventTrackDemo_Prefix.pch";
 				INFOPLIST_FILE = ETEventTrackDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

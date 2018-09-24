@@ -19,6 +19,14 @@
     
     // 手动设置页面埋点id
     self.et_eventId = @"10003";
+    
+    // 设置导航栏
+    UIBarButtonItem *leftItem =[[UIBarButtonItem alloc] initWithTitle:@"返回"
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:@selector(goback)];
+    leftItem.tintColor = [UIColor redColor];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,6 +34,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)goback {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

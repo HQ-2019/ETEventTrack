@@ -16,6 +16,8 @@
 
 #import "ETApplicationListener.h"
 
+#import "ETLogger.h"
+
 @implementation ETEventTrack
 
 dET_SINGLETON_FOR_CLASS(ETEventTrack)
@@ -25,34 +27,41 @@ dET_SINGLETON_FOR_CLASS(ETEventTrack)
  
  @param serverUrl 自有埋点的服务器地址
  @param configFileName 埋点信息的配置文件名称 plist格式
+ @param enableLog 是否输出log日志 默认:NO 不输出
  @param commonParamsBloack 获取宿主APP的公共参数
  */
 + (void)startWithServerUrl:(NSString *)serverUrl
             configFileName:(NSString *)configFileName
+                 enableLog:(BOOL)enableLog
         commonParamsBloack:(ETCommonParamsBloack)commonParamsBloack {
     [[ETEventTrack sharedInstance] startWithServerUrl:serverUrl
                                        configFileName:configFileName
+                                            enableLog:enableLog
                                    commonParamsBloack:commonParamsBloack];
 }
 
 - (void)startWithServerUrl:(NSString *)serverUrl
             configFileName:(NSString *)configFileName
+                 enableLog:(BOOL)enableLog
         commonParamsBloack:(ETCommonParamsBloack)commonParamsBloack {
     NSAssert(serverUrl.length > 0, @"服务器地址不能为空");
     if (serverUrl.length > 0) {
         self.serverUrl = serverUrl;
     }
-    
+
     if (configFileName.length > 0) {
         self.configFileName = configFileName;
     }
-    
+
     if (commonParamsBloack) {
         self.commonParamsbloack = commonParamsBloack;
     }
-    
+
     // 启动应用程序生命周期事件的监听
     [ETApplicationListener startApplicationListeners];
+
+    // 设置日志输出
+    [ETLogger enableLog:enableLog];
 }
 
 /**
@@ -80,7 +89,6 @@ dET_SINGLETON_FOR_CLASS(ETEventTrack)
 + (void)addEventTrackData:(NSDictionary *)trackData {
     [ETEventTrackManager addEventTrackData:trackData];
 }
-
 
 /**
  添加埋点信息(神策SDK埋点)

@@ -16,8 +16,8 @@
         id obj = [NSJSONSerialization JSONObjectWithData:data
                                                  options:NSJSONReadingAllowFragments
                                                    error:&error];
-        
-        if (obj != nil && error == nil){
+
+        if (obj != nil && error == nil) {
             return obj;
         } else {
             // 解析错误
@@ -34,12 +34,12 @@
 
 + (NSData *)toJSONData:(id)obj {
     NSData *ret = nil;
-    if ( [NSJSONSerialization isValidJSONObject:obj] ) {
+    if ([NSJSONSerialization isValidJSONObject:obj]) {
         NSError *error = nil;
         ret = [NSJSONSerialization dataWithJSONObject:obj
                                               options:NSJSONWritingPrettyPrinted
                                                 error:&error];
-        if ( error ) {
+        if (error) {
             ret = nil;
         }
     }
