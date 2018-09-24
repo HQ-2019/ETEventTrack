@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ETConstants.h"
+#import "ETMacro.h"
 
 @interface ETConfigFileUtils : NSObject
 dET_SINGLETON_FOR_CLASS_HEADER(ETConfigFileUtils)

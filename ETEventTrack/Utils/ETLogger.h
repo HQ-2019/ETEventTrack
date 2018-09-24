@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 #ifdef DEBUG
 #define ETLog(format, ...) [ETLogger logWtihTime:__TIME__ function:__FUNCTION__ line:__LINE__ message:(format), ## __VA_ARGS__];
 #else
-#define NSLog(...)
+#define ETLog(...)
 #endif
 
 @interface ETLogger : NSObject
