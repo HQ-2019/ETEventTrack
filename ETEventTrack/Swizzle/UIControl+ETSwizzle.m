@@ -32,8 +32,6 @@
     [self swizzled_sendAction:action to:target forEvent:event];
     //设置埋点数据
     [self stastisticsAction:action to:target forEvent:event];
-    
-    ETLog(@"点击事件 action:%@   target:%@  UIEvent:%@", NSStringFromSelector(action), target, event);
 }
 
 #pragma mark -
