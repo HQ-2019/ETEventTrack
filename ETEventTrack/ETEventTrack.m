@@ -77,6 +77,9 @@ dET_SINGLETON_FOR_CLASS(ETEventTrack)
 
 - (void)configShenceSdkWithServerUrl:(NSString *)serverUrl
                            enableLog:(BOOL)enableLog {
+    if (serverUrl.length > 0) {
+        self.shenceServerUrl = serverUrl;
+    }
     // 启动神策埋点
     [ETAnalyticsManager startSensorAnalyticsWithEnableLog:enableLog];
 }
