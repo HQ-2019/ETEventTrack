@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "ETEventTrack" # 项目名称
-    s.version      = "1.0.3"        # 版本号 与 你仓库的 标签号 对应
+    s.version      = "1.0.4"        # 版本号 与 你仓库的 标签号 对应
     s.license      = "MIT"          # 开源证书
     s.summary      = "iOS项目埋点基础框架" # 项目简介
 

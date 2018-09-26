@@ -21,7 +21,8 @@
 
 @interface ETEventTrackManager ()
 
-@property (nonatomic, strong) NSMutableArray *currentArray; // 埋点数据数组
+@property (nonatomic, strong) dispatch_queue_t dataQueue;   // 数据操作队列
+@property (nonatomic, strong) NSMutableArray *dataArray;    // 埋点数据数组
 @property (nonatomic, assign) BOOL uploading;               // 是否正在提交数据 YES:正在执行提交
 @property (nonatomic, strong) dispatch_source_t timer;      // GCD定时器
 
@@ -35,6 +36,10 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
     self = [super init];
     if (self) {
         _uploading = NO;
+        
+        // 设置队列
+        NSString *uuid = [NSString stringWithFormat:@"com.et.array_%p", self];
+        self.dataQueue = dispatch_queue_create([uuid UTF8String], DISPATCH_QUEUE_CONCURRENT);
 
         // 开启定时器
         [self openTimer];
@@ -42,12 +47,43 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
     return self;
 }
 
-- (NSMutableArray *)currentArray {
-    if (!_currentArray) {
-        _currentArray = [[NSMutableArray alloc] init];
+#pragma mark -
+#pragma mark - data handle
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc] init];
     }
+    return _dataArray;
+}
 
-    return _currentArray;
+- (void)addObject:(id)anObject {
+    dispatch_barrier_async(self.dataQueue, ^{
+        if (anObject) {
+            [self.dataArray addObject:anObject];
+        }
+    });
+}
+
+- (void)removeObjectsInArray:(NSArray *)array{
+    dispatch_barrier_async(self.dataQueue, ^{
+        if (array.count > 0) {
+            [self.dataArray removeObjectsInArray:array];
+        }
+    });
+}
+
+- (NSArray *)getArray {
+    __block NSEnumerator *enu;
+    dispatch_sync(self.dataQueue, ^{
+        enu = [self.dataArray objectEnumerator];
+    });
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (NSObject *object in enu) {
+        [array addObject:object];
+    }
+    
+    return array.copy;
 }
 
 #pragma mark -
@@ -96,31 +132,32 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
 #pragma mark -
 #pragma mark - 新增加一个埋点数据
 + (void)addEventTrackData:(NSDictionary *)trackData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[[self class] sharedInstance] addEventTrackData:trackData];
-    });
+    @autoreleasepool {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[[self class] sharedInstance] addEventTrackData:trackData];
+        });
+    }
 }
 
 - (void)addEventTrackData:(NSDictionary *)trackData {
     @try {
-        @synchronized(self.currentArray) {
-            NSAssert(trackData, @"new add event track data cannot be nil");
-            // 获取完整的埋点信息
-            NSDictionary *data = [ETDataManamer eventTrackData:trackData];
-            // 将埋点数据添加到数组
-            [self.currentArray addObject:data];
-            
-            ETLog(@"\n ############# new add event track data ############### \n %@", data);
-        }
+        NSAssert(trackData, @"new add event track data cannot be nil");
+        // 获取完整的埋点信息
+        NSDictionary *data = [ETDataManamer eventTrackData:trackData];
+        // 将埋点数据添加到数组
+//            [self.dataArray addObject:data];
+        [self addObject:data];
+        
+        ETLog(@"\n ############# new add event track data ############### \n %@", data);
     } @catch (NSException *exception) {
         ETLog(@"t添加信息异常: %@", exception);
     }
 }
 
 #pragma mark -
-#pragma mark - 上传统计数据 忽略kMaxCounts条数的限制
+#pragma mark - 上传统计数据
 /**
- 上传统计数据 忽略kMaxCounts条数的限制
+ 上传统计数据
  
  @param callback callback
  */
@@ -129,14 +166,14 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
 }
 
 - (void)uploadEventTrackData:(KResponeAlertCallBack)callback {
-    if (![self isUploadData] || [ETEventTrack sharedInstance].serverUrl.length <= 0 || self.currentArray.count <= 0) {
-        return;
-    }
-    
     @try {
+        if (![self isUploadData] || [ETEventTrack sharedInstance].serverUrl.length <= 0 || self.dataArray.count <= 0) {
+            return;
+        }
+        
         // 设置埋点数据
         NSMutableDictionary *params = [NSMutableDictionary new];
-        NSArray *array = [NSArray arrayWithArray:self.currentArray];
+        NSArray *array = [self getArray];
         [params setValue:array forKey:@"body"];
         
         self.uploading = YES;
@@ -146,13 +183,13 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
                                      parameters:params
                                        callBack:^(id JSONResponse, NSError *error) {
                                            __strong typeof(weakSelf) strongSelf = weakSelf;
-                                           self.uploading = NO;
+                                           strongSelf.uploading = NO;
                                            NSString *status = JSONResponse[ @"code" ];
                                            NSString *msg = JSONResponse[ @"message" ];
                                            BOOL success = NO;
                                            if ([status isEqualToString:@"0000"] && error == nil) {
                                                //清除数据
-                                               [self.currentArray removeObjectsInArray:array];
+                                               [strongSelf removeObjectsInArray:array];
                                                [strongSelf clearLoactionData];
                                                success = YES;
                                            }
@@ -176,11 +213,10 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
     @try {
         NSString *loactionDataPath = [self getLoactionJsonPathWithDataNameBool:YES];
         NSString *jsonString = [NSString stringWithContentsOfFile:loactionDataPath encoding:NSUTF8StringEncoding error:NULL];
-        
         NSArray *loactionArray = [ETJsonUtils fromJSONString:jsonString];
         if (loactionArray.count > 0) {
-            [self.currentArray insertObjects:loactionArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, loactionArray.count)]];
-            ETLog(@"上传本地埋点数据 : %@", self.currentArray);
+            [self.dataArray insertObjects:loactionArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, loactionArray.count)]];
+            ETLog(@"上传本地埋点数据 : %@", self.dataArray);
             [self uploadEventTrackData:nil];
         }
     } @catch (NSException *exception) {
@@ -194,7 +230,7 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
  @return 是否上传 YES：上传
  */
 - (BOOL)isUploadData {
-    if (self.currentArray.count > 0 && !self.uploading) {
+    if (self.dataArray.count > 0 && !self.uploading) {
         return YES;
     }
     return NO;
@@ -210,12 +246,12 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
     @try {
         [self clearLoactionData];
         NSString *loactionDataPath = [self getLoactionJsonPathWithDataNameBool:YES];
-        
-        NSString *loactionString = [ETJsonUtils toJSONString:self.currentArray];
+        NSArray *array = [self getArray];
+        NSString *loactionString = [ETJsonUtils toJSONString:array];
         BOOL saveBool = [loactionString writeToFile:loactionDataPath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
         //存储成功后删除内存数组
         if (saveBool) {
-            [self.currentArray removeAllObjects];
+            [self removeObjectsInArray:array];
             ETLog(@"统计数据保存到本地 成功");
         } else {
             ETLog(@"统计数据保存到本地 失败");
