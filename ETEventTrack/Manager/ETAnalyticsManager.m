@@ -39,8 +39,9 @@
  @param event 事件
  */
 + (void)sensorAnalyticTrackEvent:(NSString *)event {
+    NSDictionary *dic = [ETDataManamer commonParams];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[SensorsAnalyticsSDK sharedInstance] track:event withProperties:[ETDataManamer commonParams]];
+        [[SensorsAnalyticsSDK sharedInstance] track:event withProperties:dic];
     });
 }
 
@@ -51,9 +52,9 @@
  @param propertyDic 自定义属性
  */
 + (void)sensorAnalyticTrackEvent:(NSString *)event properties:(NSDictionary *)propertyDic {
+    NSMutableDictionary *dic = propertyDic.mutableCopy;
+    [dic addEntriesFromDictionary:[ETDataManamer commonParams]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableDictionary *dic = propertyDic.mutableCopy;
-        [dic addEntriesFromDictionary:[ETDataManamer commonParams]];
         [[SensorsAnalyticsSDK sharedInstance] track:event
                                      withProperties:dic];
     });

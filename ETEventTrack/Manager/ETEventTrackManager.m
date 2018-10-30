@@ -132,11 +132,7 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
 #pragma mark -
 #pragma mark - 新增加一个埋点数据
 + (void)addEventTrackData:(NSDictionary *)trackData {
-    @autoreleasepool {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[[self class] sharedInstance] addEventTrackData:trackData];
-        });
-    }
+    [[[self class] sharedInstance] addEventTrackData:trackData];
 }
 
 - (void)addEventTrackData:(NSDictionary *)trackData {
@@ -145,7 +141,6 @@ dET_SINGLETON_FOR_CLASS(ETEventTrackManager)
         // 获取完整的埋点信息
         NSDictionary *data = [ETDataManamer eventTrackData:trackData];
         // 将埋点数据添加到数组
-//            [self.dataArray addObject:data];
         [self addObject:data];
         
         ETLog(@"\n ############# new add event track data ############### \n %@", data);

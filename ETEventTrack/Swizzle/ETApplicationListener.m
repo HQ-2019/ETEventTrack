@@ -77,19 +77,21 @@
 
 - (void)applicationDidFinishLaunchingNotification:(NSNotification *)notification {
     ETLog(@"ET  applicationDidFinishLaunchingNotification");
+    // 程序切入前台 数据打点
+    [self applicationStartOrEnterForeground];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
     ETLog(@"ET  applicationWillEnterForeground");
+    // 程序切入前台 数据打点
+    [self applicationStartOrEnterForeground];
+    
+    // 结束后台任务
+    [self endBackgroundTask];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
     ETLog(@"ET  applicationDidBecomeActive");
-    // 程序切入前台 数据打点
-    [self applicationStartOrEnterForeground];
-
-    // 结束后台任务
-    [self endBackgroundTask];
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification {
@@ -117,15 +119,15 @@
 - (void)applicationStartOrEnterForeground {
     @try {
         self.appLaunchTime = [NSDate date];
-        // 添加进入前台的埋点
-        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppEnterForeground];
-        [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppEnterForeground}];
-
         if (![self hasLaunched]) {
             // 第一次安装
             [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppFisrtLaunch];
             [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppFisrtLaunch}];
         }
+        
+        // 添加进入前台的埋点
+        [ETAnalyticsManager sensorAnalyticTrackEvent:ETEventTypeAppEnterForeground];
+        [ETEventTrackManager addEventTrackData:@{ETEventKeyEventType: ETEventTypeAppEnterForeground}];
 
         //进入前台 上传本地和已有埋点数据
         [ETEventTrackManager uploadLocalEventTrackData];
