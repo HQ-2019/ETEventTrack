@@ -20,6 +20,13 @@
 + (void)startSensorAnalyticsWithEnableLog:(BOOL)enableLog;
 
 /**
+ 配置用户id
+ 
+ @param userId 用户id
+ */
++ (void)configUserId:(NSString *)userId;
+
+/**
  追踪用户行为事件
  
  @param event 事件

@@ -40,6 +40,12 @@ dET_SINGLETON_FOR_CLASS_HEADER(ETEventTrack)
 + (void)configShenceSdkWithServerUrl:(NSString *)serverUrl
                            enableLog:(BOOL)enableLog;
 
+/**
+ 配置神策的用户id
+
+ @param userId 用户id
+ */
++ (void)configShenceUserId:(NSString *)userId;
 
 /**
  添加埋点信息(自有埋点)

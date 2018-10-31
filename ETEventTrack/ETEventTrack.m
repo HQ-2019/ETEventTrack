@@ -85,6 +85,15 @@ dET_SINGLETON_FOR_CLASS(ETEventTrack)
 }
 
 /**
+ 配置神策的用户id
+ 
+ @param userId 用户id
+ */
++ (void)configShenceUserId:(NSString *)userId {
+    [ETAnalyticsManager configUserId:userId];
+}
+
+/**
  添加埋点信息(自有埋点)
  
  @param trackData 埋点信息
